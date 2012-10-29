@@ -80,3 +80,30 @@ nil
 (cdar '((this is a list)))
 ;; '(is a list) <=> (comp car cdr)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; if
+
+(if '()
+    'this-is-true
+  'this-is-false-or-the-list-is-empty)
+;; 'this-is-false-or-the-list-is-empty
+
+(if '(1)
+    'this-is-true
+  'this-is-false-or-the-list-is-empty)
+;; 'this-is-true
+
+(if 'some-thing
+    'this-is-true
+  'this-is-false)
+;; 'this-is-true
+
+(if (oddp 5)
+    'odd
+  'even)
+;; 'odd
+
+(if (oddp 4)
+    'odd
+  'even)
+;; 'even
+

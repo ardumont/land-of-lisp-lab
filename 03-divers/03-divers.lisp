@@ -35,7 +35,7 @@ nil
 ()
 '()
 ;; nil
-
+q
 ;; cons
 (cons 'chicken '())
 (cons 'chicken nil)
@@ -44,3 +44,19 @@ nil
 '(1 2 3 4)
 (cons 1 (cons 2 (cons 3 (cons 4 nil))))
 ;; '(1 2 3 4)
+
+(car '(this is a list))
+;; 'this
+
+(cdr '(this is a list))
+;; '(is a list)
+
+(car (cdr '(this is a list)))
+;; 'is
+
+(car (car '((this) is a list)))
+;; 'this
+
+(cdr (car '((this) is a list)))
+;; nil
+

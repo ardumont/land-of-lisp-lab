@@ -16,4 +16,9 @@
   (g (f 5)))
 ;; 20
 
+;; to permit that g knows f inside the same let bloc
+(labels ((f (n) (+ n 10))
+         (g (n) (+ 5 (f n))))
+  (g 5))
+;; 20
 

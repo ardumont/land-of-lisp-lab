@@ -60,3 +60,9 @@ q
 (cdr (car '((this) is a list)))
 ;; nil
 
+(cadr '(this is a list))
+;; 'is <=> (comp car cdr)
+
+(cdar '((this is a list)))
+;; '(is a list) <=> (comp car cdr)
+

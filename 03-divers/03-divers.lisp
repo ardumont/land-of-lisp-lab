@@ -24,3 +24,9 @@
 
 ;; print the message "hello world!" and then return this message
 (princ "hello world!")
+
+(expt 2 3)
+;; 8
+
+'(expt 2 3)
+;; (expt 2 3)

@@ -22,3 +22,5 @@
   (g 5))
 ;; 20
 
+;; print the message "hello world!" and then return this message
+(princ "hello world!")

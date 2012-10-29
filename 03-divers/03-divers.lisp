@@ -107,3 +107,21 @@ nil
   'even)
 ;; 'even
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; cond
+
+(defun who-is-this
+  (person)
+  (cond ((eq person 'chloe) '(this is my daughter))
+        ((eq person 'theo) '(this is my son))
+        ((eq person 'chris) '(this is my wife))
+        (t '(this is some stranger))))
+
+(who-is-this 'theo)
+;; '(this is my son)
+(who-is-this 'chloe)
+;; '(this is my daughter)
+(who-is-this 'chris)
+;; '(this is my wife)
+(who-is-this 'someone)
+;; '(this is some stranger)
+

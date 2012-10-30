@@ -106,12 +106,14 @@
 
 (describe-paths *location* *edges*)
 (find 'garden (mapcar #'car (cdr (assoc *location* *edges*))))
-(find 'attic (mapcar #'car (cdr (assoc *location* *edges*))))
+;; 'garden
+(find 'garden (cdr (assoc *location* *edges*)) :key #'car)
+;; '(garden west door) ;; not exactly as before but still, the list result is true
 
 (defun walk (direction)
-  (if (find direction (mapcar 'car *nodes*))
+  (if (find direction *nodes* :key #'car)
       ;; direction ok, can we go there?
-      (if (find direction (mapcar #'car (cdr (assoc *location* *edges*))))
+      (if (find direction (cdr (assoc *location* *edges*)) :key #'car)
           ;; all is ok, the player can go
           (progn (setf *location* direction)
                  (look))
@@ -137,3 +139,4 @@
 ;; 'living-room
 (walk 'garden)
 ;; '(you are in a beautiful garden. there is a well in front of you. there is a door going east from here. you see a frog on the floor. you see a chain on the floor.)
+

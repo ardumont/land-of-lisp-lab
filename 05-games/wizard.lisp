@@ -50,3 +50,21 @@
 (objects-at 'attic *objects* *object-locations*)
 ;; nil
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; describe-objects
+
+;; goal: describe the objects visible at a given location
+
+(defun describe-objects (loc objs obj-loc)
+  (flet ((describe-obj (obj)
+                         `(you see a ,obj on the floor.)))
+    (apply #'append (mapcar #'describe-obj (objects-at loc objs obj-loc)))))
+
+(describe-objects 'living-room *objects* *object-locations*)
+;; '(you see a whiskey on the floor. you see a bucket on the floor.)
+
+(describe-objects 'attic *objects* *object-locations*)
+;; nil
+
+(describe-objects 'garden *objects* *object-locations*)
+;; '(you see a frog on the floor. you see a chain on the floor.)
+

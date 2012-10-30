@@ -256,3 +256,13 @@ nil
 
 (eql #\a #\b)
 ;; nil
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; mapcar
+
+(mapcar #'sqrt '(1 3 4 10))
+;; '(1 1.7320508 2 3.1622777)
+
+(mapcar (function sqrt) '(1 3 4 10))
+;; '(1 1.7320508 2 3.1622777)
+
+;; #' is a macro that expands into the (function form)

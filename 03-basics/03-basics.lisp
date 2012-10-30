@@ -274,3 +274,8 @@ nil
 
 (apply #'append '((these are) (lists which will) (be appended into) (one)))
 ;; (these are lists which will be appended into one)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; apply
+
+(apply + '(1 2 3 4 5))
+;; 15

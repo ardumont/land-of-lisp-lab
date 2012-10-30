@@ -24,3 +24,29 @@
 
 (describe-paths 'living-room *edges*)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; objects-at
+
+;; all the objects of the game
+(defparameter *objects* '(whiskey bucket frog chain))
+
+;; the object present in a location
+(defparameter *object-locations* '((whiskey living-room)
+                                   (bucket living-room)
+                                   (frog garden)
+                                   (chain garden)))
+
+;; given a location, list the objects present in it
+(defun objects-at (loc objects object-locations)
+  (flet ((eq-loc-p (object-loc)
+                   (eq loc (cadr object-loc))))
+    (mapcar #'car (remove-if-not #'eq-loc-p *object-locations*))))
+
+(objects-at 'living-room *objects* *object-locations*)
+;; '(whiskey bucket)
+
+(objects-at 'garden *objects* *object-locations*)
+;; '(frog chain)
+
+(objects-at 'attic *objects* *object-locations*)
+;; nil
+

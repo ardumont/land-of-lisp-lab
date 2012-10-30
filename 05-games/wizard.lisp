@@ -91,52 +91,32 @@
 ;; goal: walking in a direction through a real passage
 ;; side-effect: modify the current *location* variable
 
-*nodes*
-*edges*
-
-(find 'living-room '(attic living-room garden))
-;; living-room
-(find 'test '(attic living-room garden))
-;; nil
-
-(find 'living-room (mapcar 'car *nodes*))
-;; living-room
-(find 'test (mapcar 'car *nodes*))
-;; nil
-
-(describe-paths *location* *edges*)
-(find 'garden (mapcar #'car (cdr (assoc *location* *edges*))))
-;; 'garden
-(find 'garden (cdr (assoc *location* *edges*)) :key #'car)
-;; '(garden west door) ;; not exactly as before but still, the list result is true
-
 (defun walk (direction)
-  (if (find direction *nodes* :key #'car)
-      ;; direction ok, can we go there?
-      (if (find direction (cdr (assoc *location* *edges*)) :key #'car)
-          ;; all is ok, the player can go
-          (progn (setf *location* direction)
-                 (look))
-          '(this direction is not possible from here.))
-      '(this direction is unknown.)))
+  (let ((next (find direction (cdr (assoc *location* *edges*)) :key #'cadr)))
+    ;; direction ok, can we go there?
+    (if next
+        ;; all is ok, the player can go
+        (progn (setf *location* (car next))
+               (look))
+      '(this direction is not possible from here.))))
 
 (walk 'no-where)
-;; '(this direction is unknown)
+;; '(this direction is not possible from here.)
 
 (setf *location* 'attic)
-(walk 'garden)
+(walk 'upstairs)
 ;; '(this direction is not possible from here.)
 
 (setf *location* 'living-room)
-(walk 'attic)
+(walk 'upstairs)
 ;; (you are in the attic. there is a giant welding torch in the corner. there is a ladder going downstairs from here.)
 *location*
 ;; 'attic
-(walk 'living-room)
+(walk 'downstairs)
  ;; (you are in the living-room. a wizard is snoring loudly on the couch. there is a door going west from here. there is a ladder going upstairs from here. you see a
  ;; whiskey on the floor. you see a bucket on the floor.)
 *location*
 ;; 'living-room
-(walk 'garden)
+(walk 'west)
 ;; '(you are in a beautiful garden. there is a well in front of you. there is a door going east from here. you see a frog on the floor. you see a chain on the floor.)
 

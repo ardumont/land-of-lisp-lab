@@ -266,3 +266,11 @@ nil
 ;; '(1 1.7320508 2 3.1622777)
 
 ;; #' is a macro that expands into the (function form)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; append
+
+(append '(1 3 2) '(:a :b))
+;; '(1 3 2 :a :b)
+
+(apply #'append '((these are) (lists which will) (be appended into) (one)))
+;; (these are lists which will be appended into one)

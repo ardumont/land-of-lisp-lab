@@ -68,3 +68,22 @@
 (describe-objects 'garden *objects* *object-locations*)
 ;; '(you see a frog on the floor. you see a chain on the floor.)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; look
+
+;; goal: one function to describe it all
+
+;; the current location of the player
+(defparameter *location* 'living-room)
+
+(defun look ()
+  (append (describe-location *location* *nodes*)
+          (describe-paths *location* *edges*)
+          (describe-objects *location* *objects* *object-locations*)))
+
+(look)
+(setf *location* 'attic)
+(look)
+(setf *location* 'living-room)
+(look)
+
+

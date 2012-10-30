@@ -197,4 +197,10 @@ nil
 (find-if #'null '(1 2 3))
 ;; nil -> no way to distinguish the use cases (annoying known limit)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; eq (symbol equality)
 
+(eq 'theo 'chloe)
+;; nil
+
+(eq 'theo 'theo)
+;; t

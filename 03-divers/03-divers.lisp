@@ -168,3 +168,17 @@ nil
 ;; t
 *it-is-even*
 ;; t
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; member
+
+(member 1 '(0 1 2 3))
+;; '(1 2 3) -> this returns the tail of the list which starts with the searched elt
+
+(member 4 '(0 1 2 3))
+;; nil
+
+(member nil '(0 1 nil 3))
+;; '(nil 3)
+
+(member nil '(0 1 nil))
+;; '(nil)

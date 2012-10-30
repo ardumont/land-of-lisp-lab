@@ -236,3 +236,23 @@ nil
 
 (equal #\a #\b)
 ;; nil
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; eql (same as eq + deal with characters and numbers)
+
+(eql 1 1)
+;; t
+
+(eql 1 2)
+;; nil
+
+(eql 1.1 1.1)
+;; t
+
+(eql 1.1 1.2)
+;; nil
+
+(eql #\a #\a)
+;; t
+
+(eql #\a #\b)
+;; nil

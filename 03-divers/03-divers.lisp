@@ -144,3 +144,27 @@ nil
 (who-is-this-person 'someone)
 ;; '(this is some stranger)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; conditions
+
+(and (oddp 4) (oddp 5) (oddp 6))
+;; nil
+
+(and (oddp 3) (oddp 5) (oddp 9))
+;; T
+
+(or (oddp 4) (oddp 5) (oddp 6))
+;; T
+
+(or (oddp 4) (oddp 6) (oddp 8))
+;; nil
+
+(defparameter *it-is-even* nil)
+(and (oddp 4) (setf *it-is-even* t))
+; nil
+*it-is-even*
+;; nil
+
+(or (oddp 4) (setf *it-is-even* t))
+;; t
+*it-is-even*
+;; t

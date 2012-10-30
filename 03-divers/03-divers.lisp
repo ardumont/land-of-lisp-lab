@@ -182,3 +182,19 @@ nil
 
 (member nil '(0 1 nil))
 ;; '(nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; find-if
+
+(flet ((eq1 (n) (eq 1 n)))
+  (find-if #'eq1 '(0 1 2 3)))
+;; 1
+
+(find-if #'evenp '(-1 1 2 3 4 5 6))
+;; 2 -> return the first element which validate the #'evenp predicate
+
+(find-if #'null '(1 2 nil 3))
+;; nil
+(find-if #'null '(1 2 3))
+;; nil -> no way to distinguish the use cases (annoying known limit)
+
+

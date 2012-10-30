@@ -204,3 +204,35 @@ nil
 
 (eq 'theo 'theo)
 ;; t
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; equal (for everything else)
+
+(equal 1 1)
+;; t
+
+(equal 1 2)
+;; nil
+
+(equal '(theo and chloe are my children) '(theo and chloe are my children))
+;; t
+
+(equal '(theo and chloe are my children) '(indeed they are))
+;; nil
+
+(equal "on-string-too" "on-string-too")
+;; t
+
+(equal "on-string-too" "on-string")
+;; nil
+
+(equal 5.5 5.5)
+;; t
+
+(equal 5.5 5.6)
+;; nil
+
+(equal #\a #\a)
+;; t
+
+(equal #\a #\b)
+;; nil

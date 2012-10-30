@@ -125,3 +125,22 @@ nil
 (who-is-this 'someone)
 ;; '(this is some stranger)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; case
+
+(defun who-is-this-person
+  (person)
+  (case person
+    ((chloe)  '(this is my daughter))
+    ((theo)   '(this is my son))
+    ((chris)  '(this is my wife))
+    (otherwise '(this is some stranger))))
+
+(who-is-this-person 'theo)
+;; '(this is my son)
+(who-is-this-person 'chloe)
+;; '(this is my daughter)
+(who-is-this-person 'chris)
+;; '(this is my wife)
+(who-is-this-person 'someone)
+;; '(this is some stranger)
+

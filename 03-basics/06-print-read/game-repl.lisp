@@ -2,5 +2,6 @@
   (progn
     (princ "wizard> ")
     (let ((cmd (read)))
-      (print (eval cmd))
-      (game-repl))))
+      (unless (eq cmd 'quit)
+        (print (eval cmd))
+        (game-repl)))))

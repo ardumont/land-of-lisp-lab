@@ -294,3 +294,19 @@ nil
 (find 'y '((5 x) (3 y) (7 z)) :key #'cadr)
 ;; '(3 y)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; assoc/push
+
+(assoc :fruit '((:fruit :apple) (:fruit :banana)))
+;; '(:fruit :apple) -> only the first element of the list is given
+
+(defparameter *fruits*  '((:fruit :apple) (:fruit :banana)))
+
+(push '(:fruit :tomatoe) *fruits*)
+;;  '((:fruit :tomatoe) (:fruit :apple) (:fruit :banana))
+
+*fruits*
+;;  '((:fruit :tomatoe) (:fruit :apple) (:fruit :banana))
+;; (push new-value list)  <=> (setf list (cons new-value list))
+
+(assoc :fruit *fruits*)
+;; '(:fruit :tomatoe)

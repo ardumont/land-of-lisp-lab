@@ -310,3 +310,24 @@ nil
 
 (assoc :fruit *fruits*)
 ;; '(:fruit :tomatoe)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; print/princ/prin1
+
+(print "this is a string")
+;; "this is a string"
+;; "this is a string"
+
+(progn (print "this")
+       (print "is a string"))
+;; "this"
+;; "is a string"
+;; "is a string"
+
+(progn (prin1 "this")
+       (prin1 "is a string"))
+;; "this""is a string"
+;; "is a string"
+
+
+
+

@@ -172,3 +172,23 @@
 (walk 'west)
 ;; '(you are in a beautiful garden. there is a well in front of you. there is a door going east from here. you see a frog on the floor. you see a chain on the floor.)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; pickup
+
+;; goal: pickup an object from a location
+
+(member 'whiskey (objects-at 'living-room *objects* *object-locations*))
+
+(defun pickup (obj)
+  (cond ((member obj (objects-at *location* *objects* *object-locations*))
+           ;; ok, this object is present at the player's current location
+           (push (list obj 'body) *object-locations*)
+           `(you picked up ,obj))
+         (t  `(you cannot pickup ,obj))))
+
+*location*
+(pickup 'whiskey)
+(walk 'east)
+(pickup 'whiskey)
+(walk 'west)
+(pickup 'frog)
+(pickup 'something)

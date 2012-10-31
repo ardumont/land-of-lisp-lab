@@ -192,3 +192,10 @@
 (walk 'west)
 (pickup 'frog)
 (pickup 'something)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; inventory
+
+(defun inventory ()
+  (cons 'items- (objects-at 'body *objects* *object-locations*)))
+
+(inventory)

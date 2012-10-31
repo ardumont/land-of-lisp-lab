@@ -10,3 +10,13 @@
               (print (eval cmd))
               (game-repl))
           `(command ,cmd unknown!))))))
+
+;; this will permit us to read a string without any parenthesis or quote
+(defun game-read ()
+  (let ((cmd (read-from-string (concatenate 'string "(" (read-line) ")"))))
+    (flet ((quote-it (d)
+                     (list 'quote d)))
+      (cons (car cmd) (mapcar #'quote-it (cdr cmd))))))
+
+
+

@@ -10,7 +10,7 @@
 (defun game-eval (cmd)
   (if (member (car cmd) *available-cmds*)
       (eval cmd)
-      `(command ,cmd unknown!)))
+      `(command unknown!)))
 
 (defun game-print (msg)
   (flet ((interpose (c l)

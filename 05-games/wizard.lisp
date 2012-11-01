@@ -4,7 +4,7 @@
 (defparameter *nodes*
   '((living-room (you are in the living-room. a wizard is snoring on the couch.))
     (garden      (you are in a beautiful garden. there is a well in front of you.))
-    (attic       (you are in the attic. there is a giant welding torch in the corner).)))
+    (attic       (you are in the attic. there is a giant welding torch in the corner.))))
 
 ;; retrieve the correct item regarding the 'garden entry
 (assoc 'garden *nodes*)
@@ -183,7 +183,7 @@
            ;; ok, this object is present at the player's current location
            (push (list obj 'body) *object-locations*)
            `(,obj was picked up.))
-         (t `(,obj is nowhere to be found.))))
+         (t `(you cannot pickup that.))))
 
 *location*
 (pickup 'whiskey)

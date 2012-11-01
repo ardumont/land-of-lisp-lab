@@ -2,9 +2,9 @@
 
 ;; association list which represents the possible places of the game
 (defparameter *nodes*
-  '((living-room (you are in the living-room. a wizard is snoring on the couch))
-    (garden      (you are in a beautiful garden. there is a well in front of you))
-    (attic       (you are in the attic. there is a giant welding torch in the corner))))
+  '((living-room (you are in the living-room. a wizard is snoring on the couch.))
+    (garden      (you are in a beautiful garden. there is a well in front of you.))
+    (attic       (you are in the attic. there is a giant welding torch in the corner).)))
 
 ;; retrieve the correct item regarding the 'garden entry
 (assoc 'garden *nodes*)
@@ -182,8 +182,8 @@
   (cond ((member obj (objects-at *location* *objects* *object-locations*))
            ;; ok, this object is present at the player's current location
            (push (list obj 'body) *object-locations*)
-           `(you picked up ,obj))
-         (t  `(you cannot pickup ,obj))))
+           `(,obj was picked up.))
+         (t `(,obj is nowhere to be found.))))
 
 *location*
 (pickup 'whiskey)

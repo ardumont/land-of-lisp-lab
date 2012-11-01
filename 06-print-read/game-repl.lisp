@@ -35,4 +35,5 @@
       (unless (eq (car cmd) 'quit)
         (progn
           (princ (game-print (game-eval cmd)))
+          (fresh-line)
           (game-repl))))))

@@ -88,3 +88,23 @@
 ;; LIVING_ROOM->ATTIC[label="(UPSTAIRS LADDER)"];
 ;; GARDEN->LIVING_ROOM[label="(EAST DOOR)"];
 ;; ATTIC->LIVING_ROOM[label="(DOWNSTAIRS LADDER)"];
+
+;; compute the graph altogether
+(defun graph->dot (nodes edges)
+  (fresh-line)
+  (princ "digraph {")
+  (nodes->dot nodes)
+  (edges->dot edges)
+  (princ "}"))
+
+(graph->dot *nodes* *edges*)
+;; prints
+;; digraph {
+;; living_ROOM[label="(YOU ARE IN THE LIVING-ROOM..."];
+;; GARDEN[label="(YOU ARE IN A BEAUTIFUL GAR..."];
+;; ATTIC[label="(YOU ARE IN THE ATTIC. THER..."];
+;; LIVING_ROOM->GARDEN[label="(WEST DOOR)"];
+;; LIVING_ROOM->ATTIC[label="(UPSTAIRS LADDER)"];
+;; GARDEN->LIVING_ROOM[label="(EAST DOOR)"];
+;; ATTIC->LIVING_ROOM[label="(DOWNSTAIRS LADDER)"] ;}
+

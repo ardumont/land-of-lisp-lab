@@ -48,6 +48,9 @@
 (dot-label 'this-is-way-too-much-in-regards-of-the-30-characters-limit)
 ;; "THIS-IS-WAY-TOO-MUCH-IN-REG..."
 
+;; print the graphviz label
+(defun glabel (name)
+  (concatenate 'string "[label=\"" name "\"];"))
 
 ;; compute the nodes of the graph
 (defun nodes->dot (nodes)
@@ -55,13 +58,33 @@
    (lambda (node)
      (fresh-line)
      (princ (dot-name (car node)))
-     (princ "[label=\"")
-     (princ (dot-label (cdr node)))
-     (princ "\"];"))
+     (princ (glabel (dot-label (cadr node)))))
    nodes))
 
 (nodes->dot *nodes*)
-;; print
-;; LIVING_ROOM[label="((YOU ARE IN THE LIVING-ROO..."];
-;; GARDEN[label="((YOU ARE IN A BEAUTIFUL GA..."];
-;; ATTIC[label="((YOU ARE IN THE ATTIC. THE..."];
+;; prints
+;; LIVING_ROOM[label="(YOU ARE IN THE LIVING-ROOM..."];
+;; GARDEN[label="(YOU ARE IN A BEAUTIFUL GAR..."];
+;; ATTIC[label="(YOU ARE IN THE ATTIC. THER..."];
+
+;; compute the edges of the graph
+(defun edges->dot (edges)
+  (mapc
+   (lambda (edge)
+     (let ((node-src (car edge)))
+       (mapc
+        (lambda (dest)
+          (fresh-line)
+          (princ (dot-name node-src))
+          (princ "->")
+          (princ (dot-name (car dest)))
+          (princ (glabel (dot-label (cdr dest)))))
+        (cdr edge))))
+   edges))
+
+(edges->dot *edges*)
+;; prints
+;; LIVING_ROOM->GARDEN[label="(WEST DOOR)"];
+;; LIVING_ROOM->ATTIC[label="(UPSTAIRS LADDER)"];
+;; GARDEN->LIVING_ROOM[label="(EAST DOOR)"];
+;; ATTIC->LIVING_ROOM[label="(DOWNSTAIRS LADDER)"];

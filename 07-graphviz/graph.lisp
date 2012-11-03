@@ -49,3 +49,19 @@
 ;; "THIS-IS-WAY-TOO-MUCH-IN-REG..."
 
 
+;; compute the nodes of the graph
+(defun nodes->dot (nodes)
+  (mapc
+   (lambda (node)
+     (fresh-line)
+     (princ (dot-name (car node)))
+     (princ "[label=\"")
+     (princ (dot-label (cdr node)))
+     (princ "\"];"))
+   nodes))
+
+(nodes->dot *nodes*)
+;; print
+;; LIVING_ROOM[label="((YOU ARE IN THE LIVING-ROO..."];
+;; GARDEN[label="((YOU ARE IN A BEAUTIFUL GA..."];
+;; ATTIC[label="((YOU ARE IN THE ATTIC. THE..."];

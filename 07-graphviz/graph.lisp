@@ -108,3 +108,18 @@
 ;; GARDEN->LIVING_ROOM[label="(EAST DOOR)"];
 ;; ATTIC->LIVING_ROOM[label="(DOWNSTAIRS LADDER)"] ;}
 
+;; create the graph file
+(defun dot->png (fname thunk)
+  (with-open-file (*standard-output*
+                   fname
+                   :direction :output
+                   :if-exists :supersede)
+                  (funcall thunk))
+  (ext:shell (concatenate 'string "dot -Tpng " fname " > " fname ".png")))
+
+(defun graph->png (fname nodes edges)
+  (dot->png fname
+            (lambda () (graph->dot nodes edges))))
+
+(graph->png "wizard-graph.dot" *nodes* *edges*)
+

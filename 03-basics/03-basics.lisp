@@ -328,6 +328,24 @@ nil
 ;; "this""is a string"
 ;; "is a string"
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; substitute
 
+(substitute-if -1 #'oddp '(0 1 2 3 4 5))
+;; '(0 -1 2 -1 4 -1)
 
+(substitute-if -1 #'evenp '(0 1 2 3 4 5))
+;; '(-1 1 -1 3 -1 5)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; complement
+
+(substitute-if -1 (complement #'evenp) '(0 1 2 3 4 5))
+;; '(0 -1 2 -1 4 -1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; alphanumericp
+
+(alphanumericp #\a)
+(alphanumericp #\1)
+;; t
+
+(alphanumericp #\_)
+;; nil

@@ -349,3 +349,8 @@ nil
 
 (alphanumericp #\_)
 ;; nil
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; mapcar/maplist
+
+(mapcar #'print '(1 2 3))
+(maplist #'print '(1 2 3))

@@ -395,3 +395,15 @@ nil
 
 (loop for i from 1 to 3 append (list i (* i i)))
 ;; '(1 1 2 4 3 9)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; let/let*
+
+;; (let ((x 1)
+;;       (y (+ x 1)))
+;;   y)
+;; does not work - the let can only bind variables without dependency between them
+
+(let* ((x 1)
+       (y (+ x 1)))
+  y)
+;; 2 ; use let* if dependencies between variables you want to declare

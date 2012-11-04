@@ -353,4 +353,45 @@ nil
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; mapcar/maplist
 
 (mapcar #'print '(1 2 3))
+;; prints
+;; 1
+;; 2
+;; 3
+;; (1 2 3)
+
 (maplist #'print '(1 2 3))
+;; prints
+;; (1 2 3)
+;; (2 3)
+;; (3)
+;; ((1 2 3) (2 3) (3))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; loop
+
+(loop for i in '(1 2 3) do (print i))
+;; prints
+;;
+;; 1
+;; 2
+;; 3
+;; NIL -> loop does not retain the head
+
+(loop for i on '(1 2 3) do (print i))
+;; prints
+;;
+;; (1 2 3)
+;; (2 3)
+;; (3)
+;; NIL -> loop does not retain the head
+
+(loop for i from 1 to 3 do (* i i))
+;; NIL -> does the computation but does not return it
+
+(loop for i from 1 to 3 collect (* i i))
+;; '(1 4 9) -> to return the result, use collect
+
+(loop for i from 1 to 3 collect (list i (* i i)))
+;; '((1 1) (2 4) (3 9))
+
+(loop for i from 1 to 3 append (list i (* i i)))
+;; '(1 1 2 4 3 9)

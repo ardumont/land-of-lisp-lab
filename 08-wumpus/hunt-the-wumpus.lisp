@@ -186,4 +186,15 @@
        (lambda (node) (within-one node b a-edges))
        (neighbors a a-edges))))
 
+(defun make-city-nodes (a-edges)
+  (let ((wumpus (random-node))
+        (glow-worms (loop for i below *worm-num* collect (random-node))))
+    (loop for n from 1 to *node-num*
+          collect (append (list n)
+                          (cond ((eql n wumpus) '(wumpus));; we found the wumpus
+                                ((within-two n wumpus a-edges) '(blood!)));; we found trail of wumpus
+                          (cond ((member n glow-worms) '(glow-worms))
+                                ((some (lambda (worm) (within-one n worm a-edges)) glow-worms) '(light!)))
+                          (when (some #'cdr (cdr (assoc n a-edges))) '(sirens!))))))
+
 

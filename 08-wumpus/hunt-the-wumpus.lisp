@@ -4,6 +4,7 @@
 (defparameter *congestion-city-nodes* nil)
 (defparameter *congestion-city-edges* nil)
 (defparameter *visited-nodes* nil)
+(defparameter *player-pos* nil)
 (defparameter *node-num* 30)
 (defparameter *edge-num* 45)
 (defparameter *worm-num* 3)
@@ -197,4 +198,23 @@
                                 ((some (lambda (worm) (within-one n worm a-edges)) glow-worms) '(light!)))
                           (when (some #'cdr (cdr (assoc n a-edges))) '(sirens!))))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; start a new game
 
+(defun find-empty-node ()
+  (let ((rn (random-node)))
+    (if (cdr (assoc rn *congestion-city-nodes*))
+        (find-empty-node)
+      rn)))
+
+;; draw the city map
+(defun draw-city ()
+  (ugraph->png "city.dot" *congestion-city-nodes* *congestion-city-edges*))
+
+(defun new-game ()
+  (setf *congestion-city-edges* (make-city-edges))
+  (setf *congestion-city-nodes* (make-city-nodes *congestion-city-edges*))
+  (setf *player-pos* (find-empty-node))
+  (setf *visited-nodes* (list *player-pos*))
+  (draw-city))
+
+(new-game)

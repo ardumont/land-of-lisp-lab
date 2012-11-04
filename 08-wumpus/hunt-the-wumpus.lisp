@@ -120,3 +120,52 @@
 ;; (17 . 7) (7 . 17) (2 . 11) (11 . 2) (15 . 11) (11 . 15) (22 . 9) (9 . 22)
 ;; (13 . 18) (18 . 13) (5 . 9) (9 . 5) (8 . 25) (25 . 8))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; building the final edges
+
+;; transform the edges map into an association list
+(defun edges-to-alist (edges)
+  (mapcar
+   (lambda (node)
+     (cons node
+           (mapcar
+            (lambda (nd)
+              (list (cdr nd)))
+            (remove-duplicates (direct-edges node edges)
+                               :test #'equal))))
+   (remove-duplicates (mapcar #'car edges))))
+
+(edges-to-alist (make-edge-list))
+;; one possible output
+;; ((5 (30) (27) (24))
+;;  (20 (23) (11))...)
+
+;; add cops to some routes
+(defun add-cops (a-edges cops)
+  (mapcar
+   (lambda (node)
+     (let* ((node1 (car node))
+            (node1-edges (cdr node)))
+       (cons node1
+             (mapcar
+              (lambda (edge)
+                (let ((node2 (car edge)))
+                  (if (intersection (edge-pair node1 node2) cops
+                                    :test #'equal)
+                      (list node2 'cops)
+                    edge)))
+              node1-edges))))
+   a-edges))
+
+(add-cops (edges-to-alist *edges*) '((21 . 26)))
+;; ((21 (26 COPS) (12))
+;;  (3 (26))
+;;  (26 (1) (5) (21 COPS) (30) (3) (6) (14)))
+;; ...
+
+;; the full map
+(defun make-city-edges ()
+  (let* ((nodes (loop for i from 1 to *node-num* collect i))
+         (edges (connect-all-islands nodes (make-edge-list)))
+         (cops (remove-if-not (lambda (n) (zerop (random *cop-odds*))) edges)))
+    (add-cops (edges-to-alist edges) cops)))
+

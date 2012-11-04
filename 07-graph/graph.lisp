@@ -55,7 +55,7 @@
    (lambda (node)
      (fresh-line)
      (princ (dot-name (car node)))
-     (princ (glabel (dot-label (cadr node)))))
+     (princ (glabel (dot-label node))))
    nodes))
 
 (nodes->dot *wizard-nodes*)
@@ -75,7 +75,7 @@
           (princ (dot-name node-src))
           (princ "->")
           (princ (dot-name (car dest)))
-          (princ (glabel (dot-label edge))))
+          (princ (glabel (dot-label (cdr dest)))))
         (cdr edge))))
    edges))
 

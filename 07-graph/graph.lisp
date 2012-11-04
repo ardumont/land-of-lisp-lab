@@ -75,7 +75,7 @@
           (princ (dot-name node-src))
           (princ "->")
           (princ (dot-name (car dest)))
-          (princ (glabel (dot-label (cdr dest)))))
+          (princ (glabel (dot-label edge))))
         (cdr edge))))
    edges))
 

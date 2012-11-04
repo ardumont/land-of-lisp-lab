@@ -169,3 +169,14 @@
          (cops (remove-if-not (lambda (n) (zerop (random *cop-odds*))) edges)))
     (add-cops (edges-to-alist edges) cops)))
 
+(defparameter *a-edges*
+  (make-city-edges))
+
+;; compute the list of neighbors of the node in the a-edges
+(defun neighbors (node a-edges)
+  (mapcar #'car (cdr (assoc node a-edges))))
+
+;; return the list containing the neighbors from b is b is in the neighbor of a
+(defun within-one (a b a-edges)
+  (member b (neighbors a a-edges)))
+

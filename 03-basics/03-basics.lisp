@@ -407,3 +407,20 @@ nil
        (y (+ x 1)))
   y)
 ;; 2 ; use let* if dependencies between variables you want to declare
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; intersection
+
+(intersection '(1 2 3) '(3 4 5))
+;; '(3)
+
+(intersection '(3 4 5) '(1 2 3))
+;; '(3)
+
+(intersection '(3 4 5) '(1))
+;; nil
+
+(intersection  '((26 . 5))
+               '((12 . 21) (26 . 3) (8 . 23) (26 . 5) (26 . 14) (9 . 22) (13 . 18)) :test #'equal)
+;; '((26 . 5))
+
+

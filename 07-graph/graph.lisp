@@ -1,11 +1,11 @@
 ;; association list which represents the possible places of the game
-(defparameter *nodes*
+(defparameter *wizard-nodes*
   '((living-room (you are in the living-room. a wizard is snoring on the couch.))
     (garden      (you are in a beautiful garden. there is a well in front of you.))
     (attic       (you are in the attic. there is a giant welding torch in the corner.))))
 
 ;; the paths the player can take from one place (one node) to another (node)
-(defparameter *edges*
+(defparameter *wizard-edges*
   '((living-room (garden west door)
                  (attic upstairs ladder))
     (garden      (living-room east door))
@@ -58,7 +58,7 @@
      (princ (glabel (dot-label (cadr node)))))
    nodes))
 
-(nodes->dot *nodes*)
+(nodes->dot *wizard-nodes*)
 ;; prints
 ;; LIVING_ROOM[label="(YOU ARE IN THE LIVING-ROOM..."];
 ;; GARDEN[label="(YOU ARE IN A BEAUTIFUL GAR..."];
@@ -79,7 +79,7 @@
         (cdr edge))))
    edges))
 
-(edges->dot *edges*)
+(edges->dot *wizard-edges*)
 ;; prints
 ;; LIVING_ROOM->GARDEN[label="(WEST DOOR)"];
 ;; LIVING_ROOM->ATTIC[label="(UPSTAIRS LADDER)"];
@@ -94,7 +94,7 @@
   (edges->dot edges)
   (princ "}"))
 
-(graph->dot *nodes* *edges*)
+(graph->dot *wizard-nodes* *wizard-edges*)
 ;; prints
 ;; digraph {
 ;; living_ROOM[label="(YOU ARE IN THE LIVING-ROOM..."];
@@ -118,7 +118,7 @@
   (dot->png fname
             (lambda () (graph->dot nodes edges))))
 
-(graph->png "wizard-graph.dot" *nodes* *edges*)
+(graph->png "wizard-graph.dot" *wizard-nodes* *wizard-edges*)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; undirected graphs
 
@@ -135,7 +135,7 @@
            (cdar lst)))
    edges))
 
-(uedges->dot *edges*)
+(uedges->dot *wizard-edges*)
 
 (defun ugraph->dot (nodes edges)
   (princ "graph {")
@@ -147,4 +147,4 @@
   (dot->png fname
             (lambda () (ugraph->dot nodes edges))))
 
-(ugraph->png "wizard-ugraph.dot" *nodes* *edges*)
+(ugraph->png "wizard-ugraph.dot" *wizard-nodes* *wizard-edges*)

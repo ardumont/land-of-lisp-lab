@@ -180,3 +180,10 @@
 (defun within-one (a b a-edges)
   (member b (neighbors a a-edges)))
 
+(defun within-two (a b a-edges)
+  (or (within-one a b a-edges)
+      (some
+       (lambda (node) (within-one node b a-edges))
+       (neighbors a a-edges))))
+
+

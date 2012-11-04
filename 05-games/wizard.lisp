@@ -34,6 +34,7 @@
     (garden      (living-room east door))
     (attic       (living-room downstairs ladder))))
 
+
 ;; function to describe the possible path
 
 (defun describe-path (edge)

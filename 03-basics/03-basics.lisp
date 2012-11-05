@@ -350,7 +350,7 @@ nil
 (alphanumericp #\_)
 ;; nil
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; mapcar/maplist
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; mapcar/maplist/mapcan
 
 (mapcar #'print '(1 2 3))
 ;; prints
@@ -365,6 +365,15 @@ nil
 ;; (2 3)
 ;; (3)
 ;; ((1 2 3) (2 3) (3))
+
+(defparameter *some-map* '((1 (2 3))
+                           (4 (5 6))))
+
+(mapcar (lambda (n) (cdr (assoc n *some-map*))) '(1 4 3))
+;; '(((2 3)) ((5 6)) nil)
+
+(mapcan (lambda (n) (cdr (assoc n *some-map*))) '(1 4 3))
+;; '((2 3) (5 6))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; loop
 

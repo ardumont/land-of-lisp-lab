@@ -210,16 +210,6 @@
 (defun draw-city ()
   (ugraph->png "city.dot" *congestion-city-nodes* *congestion-city-edges*))
 
-;; this function starts a new game and computes the position of each protagonist
-(defun new-game ()
-  (setf *congestion-city-edges* (make-city-edges))
-  (setf *congestion-city-nodes* (make-city-nodes *congestion-city-edges*))
-  (setf *player-pos* (find-empty-node))
-  (setf *visited-nodes* (list *player-pos*))
-  (draw-city))
-
-(new-game)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; one tour
 
 ;; Display some informations on node we visited
@@ -263,7 +253,18 @@
             (cdr (assoc node *congestion-city-edges*)))))
    *visited-nodes*))
 
-(defun known-city ()
+(defun draw-known-city ()
   (ugraph->png "know-city.dot" (known-city-nodes) (known-city-edges)))
 
-(known-city)
+(draw-known-city)
+
+;; this function starts a new game and computes the position of each protagonist
+(defun new-game ()
+  (setf *congestion-city-edges* (make-city-edges))
+  (setf *congestion-city-nodes* (make-city-nodes *congestion-city-edges*))
+  (setf *player-pos* (find-empty-node))
+  (setf *visited-nodes* (list *player-pos*))
+  (draw-city)
+  (draw-known-city))
+
+(new-game)

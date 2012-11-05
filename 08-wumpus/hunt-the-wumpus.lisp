@@ -210,6 +210,7 @@
 (defun draw-city ()
   (ugraph->png "city.dot" *congestion-city-nodes* *congestion-city-edges*))
 
+;; this function starts a new game and computes the position of each protagonist
 (defun new-game ()
   (setf *congestion-city-edges* (make-city-edges))
   (setf *congestion-city-nodes* (make-city-nodes *congestion-city-edges*))
@@ -218,3 +219,33 @@
   (draw-city))
 
 (new-game)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; one tour
+
+;; Display some informations on node we visited
+;; (* for player, ? for one-node near not yet visited)
+(defun known-city-nodes ()
+  (mapcar
+   (lambda (node)
+     (if (member node *visited-nodes*)
+         (let ((n (assoc node *congestion-city-edges*)))
+           (if (eql node *player-pos*)
+               (append n '(*))
+             n))
+       (list node '?)))
+   ;; computes the visited nodes and the one just one node from them
+   (remove-duplicates
+    (append *visited-nodes*
+            (mapcan
+             (lambda (node)
+               (neighbors node *congestion-city-edges*))
+             *visited-nodes*)))))
+
+(known-city-nodes)
+;; possible output:
+;; '((17 (5) (3) (26) *) (5 ?) (3 ?) (26 ?))
+;; which reads:
+;; - the player is currently on node 17
+;; - there are 3 nodes 5, 3 and 26 he can visit at the next step
+;; how can we check?
+;; - look at the graph you generated with new-game, you should spot the corresponding subgraph

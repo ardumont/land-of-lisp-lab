@@ -249,3 +249,16 @@
 ;; - there are 3 nodes 5, 3 and 26 he can visit at the next step
 ;; how can we check?
 ;; - look at the graph you generated with new-game, you should spot the corresponding subgraph
+
+;; Now, we need to create an alist stripped of any cop sirens that we haven’t reached yet
+(defun known-city-edges ()
+  (mapcar
+   (lambda (node)
+     (cons node
+           (mapcar
+            (lambda (nd)
+              (if (member (car nd) *visited-nodes*)
+                  nd
+                (list (car nd))));; we strip the cdr (which if it exists is cops)
+            (cdr (assoc node *congestion-city-edges*)))))
+   *visited-nodes*))

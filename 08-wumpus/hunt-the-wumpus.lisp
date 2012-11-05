@@ -310,7 +310,7 @@
         ;; legal
         (handle-new-place edge pos charging)
         ;; illegal
-        (princ "that location does not exist!"))))
+        (princ "That location does not exist or is not reachable from here!"))))
 
 ;; walk in the direction pos
 (defun walk (pos)

@@ -208,7 +208,8 @@
 
 ;; draw the city map
 (defun draw-city ()
-  (ugraph->png "city.dot" *congestion-city-nodes* *congestion-city-edges*))
+  (ugraph->png "city.dot" *congestion-city-nodes* *congestion-city-edges*)
+   (ext:shell (concatenate 'string "eog city.dot.png")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; one tour
 

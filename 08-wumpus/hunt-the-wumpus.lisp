@@ -274,9 +274,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; walk/charge
 
 (defun handle-new-place (edge pos charging)
-  (let ((node (assoc pos *congestion-city-nodes*))
-        (has-worm (and (member 'glow-worms node)             ;; is there a glow worm?
-                       (not (member pos *visited-nodes*))))) ;; and not already visited (the glow worm attack once)
+  (let* ((node (assoc pos *congestion-city-nodes*))
+         (has-worm (and
+                    (member 'glow-worm node)
+                    (not (member pos *visited-nodes*)))))
     ;; updated the visited-nodes
     (pushnew pos *visited-nodes*)
     ;; we move the player to the new pos
@@ -288,7 +289,7 @@
      ;; cops
      ((member 'cops edge) (princ "You ran into cops! Game over!"))
      ;; wumpus?
-     ((member 'wumpus edge)
+     ((member 'wumpus node)
       (if charging
           (princ "You shot the wumpus! WIN!!!!!")
         (princ "The wumpus shot you! Game over!")))
@@ -320,5 +321,21 @@
   (handle-direction pos 't))
 
 (new-game)
+(walk 0)
+;; That location does not exist or is not reachable from here!
+(walk 21)
+(walk 25)
+(walk 13)
+(walk 6)
+;; That location does not exist or is not reachable from here!
+(walk 20)
+(walk 14)
+(walk 5)
+(walk 14)
+(walk 11)
+(walk 9)
+(walk 8)
+(charge 3)
 
-
+(draw-city)
+(draw-known-city)

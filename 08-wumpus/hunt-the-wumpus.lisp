@@ -254,7 +254,8 @@
    *visited-nodes*))
 
 (defun draw-known-city ()
-  (ugraph->png "know-city.dot" (known-city-nodes) (known-city-edges)))
+  (ugraph->png "known-city.dot" (known-city-nodes) (known-city-edges))
+  (ext:shell (concatenate 'string "eog known-city.dot.png")))
 
 (draw-known-city)
 

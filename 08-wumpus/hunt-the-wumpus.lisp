@@ -262,3 +262,8 @@
                 (list (car nd))));; we strip the cdr (which if it exists is cops)
             (cdr (assoc node *congestion-city-edges*)))))
    *visited-nodes*))
+
+(defun known-city ()
+  (ugraph->png "know-city.dot" (known-city-nodes) (known-city-edges)))
+
+(known-city)

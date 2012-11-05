@@ -268,3 +268,55 @@
   (draw-known-city))
 
 (new-game)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; walk/charge
+
+(defun handle-new-place (edge pos charging)
+  (let ((node (assoc pos *congestion-city-nodes*))
+        (has-worm (and (member 'glow-worms node)             ;; is there a glow worm?
+                       (not (member pos *visited-nodes*))))) ;; and not already visited (the glow worm attack once)
+    ;; updated the visited-nodes
+    (pushnew pos *visited-nodes*)
+    ;; we move the player to the new pos
+    (setf *player-pos* pos)
+    ;; we force a new draw of the know city
+    (draw-known-city)
+    ;; at last, we check some stuff
+    (cond
+     ;; cops
+     ((member 'cops edge) (princ "You ran into cops! Game over!"))
+     ;; wumpus?
+     ((member 'wumpus edge)
+      (if charging
+          (princ "You shot the wumpus! WIN!!!!!")
+        (princ "The wumpus shot you! Game over!")))
+     ;; lost if charging
+     (charging (princ "You shot in the air! Game over!"))
+     ;; glow-worm, random node
+     (has-worm
+      (let ((nnode (random-node)))
+        (princ "you ran into glow worms! Teleportation...")
+        (princ nnode)
+        (handle-new-place nil nnode nil))))))
+
+;; check if the movement is legal then, move the player to the pos
+(defun handle-direction (pos charging)
+  (let ((edge (assoc pos
+                     (cdr (assoc *player-pos* *congestion-city-edges*)))))
+    (if edge
+        ;; legal
+        (handle-new-place edge pos charging)
+        ;; illegal
+        (princ "that location does not exist!"))))
+
+;; walk in the direction pos
+(defun walk (pos)
+  (handle-direction pos nil))
+
+;; charge (unload the last bullet onto the wumpus) in the direction pos
+(defun charge (pos)
+  (handle-direction pos 't))
+
+(new-game)
+
+

@@ -218,7 +218,7 @@
   (mapcar
    (lambda (node)
      (if (member node *visited-nodes*)
-         (let ((n (assoc node *congestion-city-edges*)))
+         (let ((n (assoc node *congestion-city-nodes*)))
            (if (eql node *player-pos*)
                (append n '(*))
              n))

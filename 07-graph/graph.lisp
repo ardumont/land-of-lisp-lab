@@ -148,3 +148,7 @@
             (lambda () (ugraph->dot nodes edges))))
 
 (ugraph->png "wizard-ugraph.dot" *wizard-nodes* *wizard-edges*)
+
+;; a utility function to display the generated graph
+(defun display-graph (img-file-name)
+  (ext:shell (concatenate 'string "eog " img-file-name)))

@@ -267,7 +267,7 @@
 ;; which reads:
 ;; - the player is currently on node 9
 ;; - the player is within 2 nodes of the wumpus
-;; - he got it by a glow-worm
+;; - he got hit by a glow-worm
 ;; ...
 
 ;; FIXME I do not really get this function!
@@ -310,17 +310,17 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; walk/charge/handle-direction/handle-new-place
 
-;; Handle the player's movement
+;; Handle the player's movement to the position pos.
 ;; if the new position contains:
 ;; - cops, the game is over
 ;; - the wumpus and the player is charging, the player wins (wumpus is dead)
 ;; - the wumpus and the player is not charging, the player loses (wumpus kills him)
 ;; - nothing special and the player is charging, the player loses (no more bullet)
-;; - glow-worm, the player is teleported randomly in a new node
-(defun handle-new-place (edge pos charging)
+;; - glow-worms, the player is teleported randomly in a new node
+(defun handle-new-place (edge-pos pos charging)
   (let* ((node (assoc pos *congestion-city-nodes*))
          (has-worm (and
-                    (member 'glow-worm node)
+                    (member 'glow-worms node)
                     (not (member pos *visited-nodes*)))))
     ;; updated the visited-nodes
     (pushnew pos *visited-nodes*)
@@ -331,7 +331,7 @@
     ;; at last, we check some stuff
     (cond
      ;; cops
-     ((member 'cops edge) (princ "You ran into cops! Game over!"))
+     ((member 'cops edge-pos) (princ "You ran into cops! Game over!"))
      ;; wumpus?
      ((member 'wumpus node)
       (if charging
@@ -339,14 +339,14 @@
         (princ "The wumpus shot you! Game over!")))
      ;; lost if charging
      (charging (princ "You shot in the air! Game over!"))
-     ;; glow-worm, random node
+     ;; glow-worms, random node
      (has-worm
       (let ((nnode (random-node)))
         (princ "you ran into glow worms! Teleportation...")
         (princ nnode)
         (handle-new-place nil nnode nil))))))
 
-;; check if the movement is legal then, move the player to the pos
+;; check if the movement is legal then, move the player to the position pos
 (defun handle-direction (pos charging)
   (let ((edge (assoc pos
                      (cdr (assoc *player-pos* *congestion-city-edges*)))))

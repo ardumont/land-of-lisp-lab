@@ -227,10 +227,11 @@
       rn)))
 
 ;; draw the city map
-;; Beware, this will launch a visualizer eog and will retain the process until you close the visualizer (TODO find a better way)
-(defun draw-city ()
-  (ugraph->png "city.dot" *congestion-city-nodes* *congestion-city-edges*)
-   (ext:shell (concatenate 'string "eog city.dot.png")))
+(defun draw-city (dot-filename)
+  (ugraph->png dot-filename *congestion-city-nodes* *congestion-city-edges*))
+
+(draw-city "city.dot")
+(display-graph "city.dot.png")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; one tour
 
@@ -284,12 +285,11 @@
    *visited-nodes*))
 
 ;; draw the city's nodes and edges
-;; Beware, this will launch a visualizer eog and will retain the process until you close the visualizer (TODO find a better way)
-(defun draw-known-city ()
-  (ugraph->png "known-city.dot" (known-city-nodes) (known-city-edges))
-  (ext:shell (concatenate 'string "eog known-city.dot.png")))
+(defun draw-known-city (dot-filename)
+  (ugraph->png dot-filename (known-city-nodes) (known-city-edges)))
 
-(draw-known-city)
+(draw-known-city "known-city.dot")
+(display-graph  "known-city.dot.png")
 
 ;; this function starts a new game :
 ;; - randomly create edges
@@ -303,8 +303,8 @@
   (setf *congestion-city-nodes* (make-city-nodes *congestion-city-edges*))
   (setf *player-pos* (find-empty-node))
   (setf *visited-nodes* (list *player-pos*))
-  (draw-city)
-  (draw-known-city))
+  (draw-city "city.dot")
+  (draw-known-city "known-city.dot"))
 
 (new-game)
 
@@ -327,7 +327,7 @@
     ;; we move the player to the new pos
     (setf *player-pos* pos)
     ;; we force a new draw of the know city
-    (draw-known-city)
+    (draw-known-city "known-city.dot")
     ;; at last, we check some stuff
     (cond
      ;; cops
@@ -383,5 +383,8 @@
 (charge 3)
 
 ;; utility function near hand to fire the drawing
-(draw-city)
-(draw-known-city)
+(draw-city "city.dot")
+(display-graph  "city.dot.png")
+(draw-known-city "known-city.dot")
+(display-graph  "known-city.dot.png")
+

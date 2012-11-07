@@ -16,3 +16,30 @@
 a
 ;; #(nil 10 nil)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; setf. generic setter
+
+;;;;;;;;;;;;;;;;;; also works with list
+
+(defparameter foo '(:a :b :c))
+
+foo
+;; '(:a :b :c)
+
+(setf (second foo) :z)
+; :z
+
+foo
+;; '(:a :z :c)
+
+;;;;;;;;;;;;;;;;;; also works with hashtable
+
+(defparameter bar (make-hash-table))
+
+bar
+;; #S(HASH-TABLE :TEST FASTHASH-EQL)
+
+(setf (gethash 'boink bar) 5)
+;; 5
+
+bar
+;; #S(HASH-TABLE :TEST FASTHASH-EQL (BOINK . 5))

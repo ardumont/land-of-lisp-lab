@@ -62,18 +62,44 @@
 (direct-edges 1 *edges-test*)
 ;; '((1 . 26) (1 . 16) (1 . 5))
 
-;; Take a source node and an edges list of nodes to compute a list of all nodes connected
-;; to that source node (even if it requires walking accross multiple nodes)
+(defun hash-edges (edges-list)
+  (let ((ht (make-hash-table)))
+    (mapc
+     (lambda (edge)
+       (let ((node (car edge)))
+         (push (cdr edge) (gethash node ht))))
+     edges-list)
+    ht))
+
+(hash-edges *edges-test*)
+;; #S(HASH-TABLE :TEST FASTHASH-EQL (2 . (11 12)) (22 . (9 18)) (20 . (9 7)) (17 . (7 25)) (6 . (26)) (24 . (14)) (27 . (5)) (7 . (17 20 11)) (18 . (13 22 23 5)) (8 . (25 15 23)) (25 . (8 17 5)) (14 . (26 30 24 26)) (11 . (15 2 7 16)) (10 . (28)) (29 . (15 16)) (3 . (26)) (13 . (18 16)) (19 . (9 28)) (28 . (10 23 19)) (23 . (18 8 28 5)) (30 . (14 26)) (12 . (2 21)) (21 . (12 26)) (16 . (11 29 13 1)) (9 . (5 22 19 20 15 5)) (5 . (9 27 1 18 25 23 9 26 15)) (15 . (11 9 8 29 5)) (26 . (14 6 14 3 30 21 5 1)) (1 . (5 16 26)))
+
+;; Take a source node and an edges list of nodes to compute a list of all nodes connected to that source node (even if it requires walking accross multiple nodes)
 (defun get-connected (node edges)
   (let ((visited nil))
     (labels ((traverse (n)
                        (unless (member n visited)
                          (push n visited)
-                         (mapc (lambda (edge) (traverse (cdr edge))) (direct-edges n edges)))))
+                         (mapc
+                          (lambda (edge) (traverse (cdr edge)))
+                          (direct-edges n edges)))))
       (traverse node)
       visited)))
 
 (get-connected 1 *edges-test*)
+
+(defun get-connected-hash (node edges-ht)
+  (let ((visited (make-hash-table)))
+    (labels ((traverse (n)
+                       (unless (gethash n visited)
+                         (setf (gethash n visited) t)
+                         (mapc
+                          (lambda (edge) (traverse edge))
+                          (gethash n edges-ht)))))
+      (traverse node))
+    visited))
+
+(get-connected-hash 1 (hash-edges *edges-test*))
 
 ;; find islands in nodes
 (defun find-islands (nodes edges)

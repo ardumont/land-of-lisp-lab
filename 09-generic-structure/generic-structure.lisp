@@ -43,3 +43,12 @@ bar
 
 bar
 ;; #S(HASH-TABLE :TEST FASTHASH-EQL (BOINK . 5))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; difference between array and list
+
+;; array
+;; constant access time to an element
+;; so the updating of an element is faster too
+
+;; list
+;; linear access time to an element

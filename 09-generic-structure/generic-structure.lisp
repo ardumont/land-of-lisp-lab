@@ -68,3 +68,21 @@ bar
 (setf (person-waist-size *tony*) 40)
 
 *tony*
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; creating your own data structure
+
+;; one implementation for number
+(defmethod add ((a number) (b number))
+  (+ a b))
+
+;; one implem for list
+(defmethod add ((a list) (b list))
+  (append a b))
+
+;; Now you can have one generic method that orchestrate something
+
+(add 1 2)
+;; 3
+
+(add '(1 2) '(3 4))
+;; '(1 2 3 4)

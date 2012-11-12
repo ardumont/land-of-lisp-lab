@@ -52,3 +52,19 @@ bar
 
 ;; list
 ;; linear access time to an element
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; structure
+
+;; define a structure person
+(defstruct person :name :age :waist-size :favorite-color)
+
+;; instanciate one person
+(defparameter *tony* (make-person :name "tony" :age 30 :waist-size 32 :favorite-color "blue"))
+
+;; retrieve their properties
+(person-age *tony*)
+
+;; update (a structure is mutable too)
+(setf (person-waist-size *tony*) 40)
+
+*tony*

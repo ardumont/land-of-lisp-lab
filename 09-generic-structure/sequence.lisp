@@ -31,3 +31,10 @@
 
 (map 'array (lambda (x) (if (eq #\c x) #\C x))
      "this is a sequence of char to 'capitalize' on c.")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;; subseq
+
+(subseq "some-random-string" 5 11)
+;; "random"
+
+

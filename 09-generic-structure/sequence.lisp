@@ -28,3 +28,6 @@
 (map 'string (lambda (x) (if (eq #\c x) #\C x))
      "this is a sequence of char to 'capitalize' on c.")
 ;; "this is a sequenCe of Char to 'Capitalize' on C."
+
+(map 'array (lambda (x) (if (eq #\c x) #\C x))
+     "this is a sequence of char to 'capitalize' on c.")

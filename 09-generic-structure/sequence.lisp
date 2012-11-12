@@ -17,3 +17,14 @@
 
 (my-sum (make-array 3 :initial-contents '(1 2 3)))
 ;; 6
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;; map
+
+(map 'list (lambda (x) (if (eq #\c x) #\C x))
+     "this is a sequence of char to 'capitalize' on c.")
+;; (#\t #\h #\i #\s #\Space #\i #\s #\Space #\a #\Space #\s #\e #\q #\u #\e #\n #\C #\e #\Space #\o #\f #\Space #\C #\h #\a #\r #\Space #\t #\o #\Space #\' #\C #\a #\p #\i #\t #\a #\l #\i #\z #\e #\' #\Space #\o #\n #\Space #\C
+#\.)
+
+(map 'string (lambda (x) (if (eq #\c x) #\C x))
+     "this is a sequence of char to 'capitalize' on c.")
+;; "this is a sequenCe of Char to 'Capitalize' on C."

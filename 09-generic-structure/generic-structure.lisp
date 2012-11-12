@@ -86,3 +86,14 @@ bar
 
 (add '(1 2) '(3 4))
 ;; '(1 2 3 4)
+
+;; which then permits us something along the lines
+
+(defun elts-sum (elts)
+  (reduce #'add elts))
+
+(elts-sum '(1 2 3 4 5 10 20 30 40 50))
+;; 165
+
+(elts-sum '((1 2 3) (4 5 6) (7 8 9)))
+;; '(1 2 3 4 5 6 7 8 9)

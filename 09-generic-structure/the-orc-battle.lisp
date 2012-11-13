@@ -69,6 +69,13 @@
 
 ;; (show-player)
 
+;; Compute a random between 1 and n
+;; (its utility will be to ask for a random index in a list)
+(defun randval (n)
+  (1+ (random (max 1 n))))
+
+;; (randval 10)
+
 
 
 

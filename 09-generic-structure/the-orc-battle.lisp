@@ -59,7 +59,18 @@
 (defun player-dead-p ()
   (<= *player-health* 0))
 
-(player-dead-p)
+;; (player-dead-p)
+
+;; Display the player's metadata (health, agility and strength)
+(defun show-player ()
+  `(knight health ,*player-health*
+           agility ,*player-agility*
+           strength ,*player-strength*))
+
+;; (show-player)
+
+
+
 
 
 

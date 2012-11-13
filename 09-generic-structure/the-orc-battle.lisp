@@ -46,3 +46,9 @@
 
 ;; the number of monsters
 (defparameter *monster-num* 12)
+
+;; Initialize the property of the player
+(defun init-player ()
+  (setf *player-health* 30)
+  (setf *player-agility* 30)
+  (setf *player-strength* 30))

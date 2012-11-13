@@ -76,8 +76,13 @@
 
 ;; (randval 10)
 
+;; is a monster m dead?
+(defun monster-dead-p (m)
+  (<= (monster-health m) 0))
 
-
-
-
-
+;; Pick randomly an alive monster inside the *monsters* list
+(defun random-monster ()
+  (let ((m (aref *monsters* (random (length *monsters*))))
+        (unless (monster-dead-p m)
+          m
+          (random-monster)))))

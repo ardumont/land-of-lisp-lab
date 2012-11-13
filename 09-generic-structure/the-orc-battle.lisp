@@ -76,9 +76,13 @@
 
 ;; (randval 10)
 
-;; is a monster m dead?
+;; Is a monster m dead?
 (defun monster-dead-p (m)
   (<= (monster-health m) 0))
+
+;; Are all the monsters dead?
+(defun monsters-dead-p ()
+  (every #'monster-dead-p *monsters*))
 
 ;; Pick randomly an alive monster inside the *monsters* list
 (defun random-monster ()

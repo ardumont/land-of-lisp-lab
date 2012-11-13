@@ -37,3 +37,12 @@
 
 (graph-functions "the-orc-battle.dot"  *functions-orc-battle-edges*)
 (display-graph  "the-orc-battle.dot.png")
+
+;; the existing monsters
+(defparameter *monsters* nil)
+
+;; the monsters builder (helper to build monsters)
+(defparameter *monster-builders* nil)
+
+;; the number of monsters
+(defparameter *monster-num* 12)

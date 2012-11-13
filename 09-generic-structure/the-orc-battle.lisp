@@ -51,4 +51,15 @@
 (defun init-player ()
   (setf *player-health* 30)
   (setf *player-agility* 30)
-  (setf *player-strength* 30))
+  (setf *player-strength* 30)
+  '(*player-health* *player-agility* *player-strength*))
+
+;;(init-player)
+
+(defun player-dead-p ()
+  (<= *player-health* 0))
+
+(player-dead-p)
+
+
+

@@ -17,14 +17,14 @@
 (defun dot-name (exp)
   (substitute-if #\_ (complement #'alphanumericp) (prin1-to-string exp)))
 
-(dot-name 'this_is_some_test!)
-(dot-name 'this-is-some_test!)
+;;(dot-name 'this_is_some_test!)
+;;(dot-name 'this-is-some_test!)
 ;; "THIS_IS_SOME_TEST_"
 
 (defparameter *max-length* 30)
 
-(write-to-string 'this-is-way-too-much-in-regards-of-the-30-characters-limit
-                 :pretty nil)
+;; (write-to-string 'this-is-way-too-much-in-regards-of-the-30-characters-limit
+;;                  :pretty nil)
 
 ;; compute the label (and limit to 30 characters)
 (defun dot-label (exp)
@@ -36,13 +36,13 @@
           s))
     ""))
 
-(dot-label nil)
+;;(dot-label nil)
 ;; ""
 
-(dot-label 'this-is-ok)
+;;(dot-label 'this-is-ok)
 ;; "THIS-IS-OK"
 
-(dot-label 'this-is-way-too-much-in-regards-of-the-30-characters-limit)
+;;(dot-label 'this-is-way-too-much-in-regards-of-the-30-characters-limit)
 ;; "THIS-IS-WAY-TOO-MUCH-IN-REG..."
 
 ;; print the graphviz label
@@ -58,7 +58,7 @@
      (princ (glabel (dot-label node))))
    nodes))
 
-(nodes->dot *wizard-nodes*)
+;;(nodes->dot *wizard-nodes*)
 ;; prints
 ;; LIVING_ROOM[label="(YOU ARE IN THE LIVING-ROOM..."];
 ;; GARDEN[label="(YOU ARE IN A BEAUTIFUL GAR..."];
@@ -79,7 +79,7 @@
         (cdr edge))))
    edges))
 
-(edges->dot *wizard-edges*)
+;;(edges->dot *wizard-edges*)
 ;; prints
 ;; LIVING_ROOM->GARDEN[label="(WEST DOOR)"];
 ;; LIVING_ROOM->ATTIC[label="(UPSTAIRS LADDER)"];
@@ -94,7 +94,7 @@
   (edges->dot edges)
   (princ "}"))
 
-(graph->dot *wizard-nodes* *wizard-edges*)
+;;(graph->dot *wizard-nodes* *wizard-edges*)
 ;; prints
 ;; digraph {
 ;; living_ROOM[label="(YOU ARE IN THE LIVING-ROOM..."];
@@ -118,7 +118,7 @@
   (dot->png fname
             (lambda () (graph->dot nodes edges))))
 
-(graph->png "wizard-graph.dot" *wizard-nodes* *wizard-edges*)
+;; (graph->png "wizard-graph.dot" *wizard-nodes* *wizard-edges*)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; undirected graphs
 
@@ -135,7 +135,7 @@
            (cdar lst)))
    edges))
 
-(uedges->dot *wizard-edges*)
+;; (uedges->dot *wizard-edges*)
 
 (defun ugraph->dot (nodes edges)
   (princ "graph {")
@@ -147,7 +147,7 @@
   (dot->png fname
             (lambda () (ugraph->dot nodes edges))))
 
-(ugraph->png "wizard-ugraph.dot" *wizard-nodes* *wizard-edges*)
+;; (ugraph->png "wizard-ugraph.dot" *wizard-nodes* *wizard-edges*)
 
 ;; a utility function to display the generated graph
 (defun display-graph (img-file-name)

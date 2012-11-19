@@ -121,3 +121,15 @@
     (princ "You have been killed. Game over"))
   (when (monsters-dead-p)
     (princ "You killed all the monsters. You win!")))
+
+(defun game-loop ()
+  (unless (or (player-dead-p) (monsters-dead-p))
+    (show-player)
+    (dotimes (i (1+ (truncate (/ (max 0 *player-agility*)))))
+      (unless (monsters-dead-p)
+        (player-attack)))
+    (map 'list
+         (lambda (m)
+           (or (monster-dead-p m) (monster-attack m)))
+         *monsters*)
+    (game-loop)))

@@ -90,3 +90,25 @@
         (unless (monster-dead-p m)
           m
           (random-monster)))))
+
+;; initiate the generic structure monster
+(defstruct monster (health (randval 10)))
+
+;; initialize the *monsters* list
+(defparameter *monsters* nil)
+
+;; push some monsters to help in developing
+(push (make-monster) *monsters*)
+
+(defun show-monsters ()
+  (cons 'foe
+        (let ((x 0))
+          (mapcar
+           (lambda (m)
+             (if (monster-dead-p m)
+                 (list (incf x) 'dead)
+               (list (incf x) 'health (monster-health m))))
+           *monsters*))))
+
+(show-monsters)
+;; '(FOE (1 HEALTH 5) (2 HEALTH 3) (3 HEALTH 7) (4 DEAD))

@@ -112,3 +112,12 @@
 
 (show-monsters)
 ;; '(FOE (1 HEALTH 5) (2 HEALTH 3) (3 HEALTH 7) (4 DEAD))
+
+(defun orc-battle ()
+  (init-monsters)
+  (init-player)
+  (game-loop)
+  (when (player-dead-p)
+    (princ "You have been killed. Game over"))
+  (when (monsters-dead-p)
+    (princ "You killed all the monsters. You win!")))
